@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/loginAndRegister.css" type="text/css">
+</head>
+<body>
+<script src="../js/register.js"></script>
+<div class="container">
+    <div class ="container-heading">
+        Registration to Chat Room
+    </div>
+    <div class ="form-Body">
+        <form action="../php/register.php" method="POST" onsubmit="return validation()">
+            <div class = "form-group">
+                <label> Username: </label><br>
+                <input type="text" name="username" id="username" autocomplete="off">
+                <div id="nameWarning" class="text_danger"></div>
+            </div>
+
+
+            <div class = "form-group">
+                <label> Phone Number:</label><br>
+                <input type="text" name="phoneNumber" id="phoneNumber" autocomplete="off" style="width: 88% ; height: 1.4em;" >
+                <div id="phoneNumberWarning" class="text_danger"></div>
+            </div>
+
+
+            <div class = "form-group" style="display: flex;flex-flow:row;width: 70%;justify-content: space-between ">
+                <div><label> Gender: </label> <br>
+                <select name="gender" style="width: 12em; font-size: 0.75em" id="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other"> Other</option>
+                </select></div>
+            </div>
+
+
+            <div class = "form-group">
+                <label> Email: </label> <br>
+                <input type="text" name="email" autocomplete="off" id="email">
+                <div id="emailWarning" class="text_danger"></div>
+            </div>
+
+
+            <div class = "form-group"><div>
+                <label> Password: </label><br>
+                <input type="password" name="password" autocomplete="off" id="password"></div><div>
+                <input type="checkbox" onclick="showPassword()" style="width: 2%"><span>Show Password</span></div>
+                <div id="passwordWarning" class="text_danger"></div>
+            </div>
+
+
+            <div class = "form-group">
+                <label> Confirm Password:</label><br>
+                <input type="password" name="conPass" autocomplete="off" id="conPassword">
+                <div id="conPasswordWarning" class="text_danger"></div>
+            </div>
+
+
+            <div class="form-group" style="margin-left: 1em; display: flex; justify-content: center">
+                 <input type="submit" style="width: 40%;height: 2em; font-size: 0.9em" autocomplete="off" id="submit">
+            </div>
+
+        </form>
+        <div style="display: flex; flex-flow: row; justify-content: center; align-items: center;">HAVE AN ACCOUNT ALREADY? <a href = "../html/login.html">LOGIN HERE</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

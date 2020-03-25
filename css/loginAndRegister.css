@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+.container {
+    margin: 2em 4em;
+}
+.container-heading{
+    height: 3em;
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    color: #990000;
+    background-color: #f9f9f9;
+}
+.form-Body{
+    margin-top: 0.4em;
+    font-size: 1.2em;
+    font-family: Gadugi;
+    background-color: #f9f9f9;
+}
+.form-group{
+    margin-left: 1em;
+    padding: 0.55em;
+}
+input{
+    width: 95%;
+    height: 1.4em;
+}
+.text_danger{
+    font-family: Bahnschrift;
+    color: #990000;
+}
+
