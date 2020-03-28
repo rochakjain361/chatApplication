@@ -44,7 +44,15 @@ if(!($_SESSION['username'] == true)){
         else{
             $fname = $_POST['fname'];
             $lname = $_POST['lname'];
-            $uname = $_SESSION['username'];
+	    $uname = $_SESSION['username'];
+	    $query0 = "SELECT * FROM rochak_profiles WHERE uname = '$uname';";
+	    $query_run0 = $connection->query($query0);
+	    $count = mysqli_num_rows($query_run0);
+	    if($count >= 1){
+		    echo "<script>alert('Profile already created')</script>";
+		    header("Location: ../php/dashboard.php");
+	    }
+	    else{
             $myFile = $_FILES['profilePic'];
             $myFile_name = $_FILES['profilePic']['name'];
             $myFile_type = $_FILES['profilePic']['type'];
@@ -55,10 +63,10 @@ if(!($_SESSION['username'] == true)){
             if($actualExt=='jpg'||$actualExt=='jpeg'||$actualExt=='png')
             {
                 move_uploaded_file($myFile_templocation, $myFile_stor);
-                $query = "INSERT INTO rochak_profiles(uname, fname, sname, image) VALUES ('$uname', '$fname', '$lname', '$myFile_stor')"; 
+                $query = "INSERT INTO rochak_profiles(uname, fname, sname, image) VALUES ('$uname', '$fname', '$lname', '$myFile_stor');"; 
                 $query_run=$connection->query($query);
                 if($query_run){
-                    header("Location: ../html/chats.html");
+                    header("Location: ../php/dashboard.php");
                 }
                 else{
                     echo "<script>alert('Try Again Later')</script>";
@@ -67,7 +75,8 @@ if(!($_SESSION['username'] == true)){
             else{
                 echo "<script>alert('Check Extension of the uploaded file'+'$actualExt' +'is the extension')</script>";
             }
-        }
+	    }
+	}
     }
     ?>
 </body>
