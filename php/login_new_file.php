@@ -13,7 +13,7 @@
     <div class ="form-Body">
         <form action="../php/login.php" method="POST" onsubmit="return validation()">
             <div class = "form-group">
-                <label> Name/UserName: </label><br>
+                <label> UserName: </label><br>
                 <input type="text" name="username" id="name" value="<?php if(isset($_COOKIE['username'])) { echo $_COOKIE['username']; } ?>" autocomplete="off">
                 <div id="nameWarning" class="text_danger"></div>
             </div>
