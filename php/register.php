@@ -22,8 +22,18 @@ if(isset($_POST['username']) && isset($_POST['phoneNumber']) && isset($_POST['em
                     die("USERNAME ALREADY TAKEN");
                 }
                 else
-                {            
-                    $query3 = "SELECT * FROM rochak_users WHERE ;";#Email Check
+		{            
+		    $user=htmlspecialchars($user);
+		    $user=mysqli_real_escape_string($connection,$username);
+		    $email=htmlspecialchars($email);
+   	            $email=mysqli_real_escape_string($connection,$email);
+		    $phoneNumber=htmlspecialchars($phoneNumber);
+		    $phoneNumber=mysqli_real_escape_string($connection,$phoneNumber);
+		    $gender=htmlspecialchars($gender);
+		    $gender=mysqli_real_escape_string($connection,$gender);
+
+
+                    $query3 = "SELECT * FROM rochak_users WHERE email = '$email';";#Email Check
                     $r2 = $connection->query($query3);
                     if(mysqli_num_rows($r2) >= 1)
                     {
@@ -31,7 +41,10 @@ if(isset($_POST['username']) && isset($_POST['phoneNumber']) && isset($_POST['em
                     die("EMAIL ALREADY TAKEN");
                     }
                     else
-                    {
+                    {   
+			    $password=htmlspecialchars($password);
+			    $password=mysqli_real_escape_string($connection,$password);
+			    $password=password_hash($password,PASSWORD_BCRYPT);
                         $query4 = "INSERT INTO rochak_users (username, password, email, gender, phoneNumber) VALUES ('$user', '$pwd', '$email', '$gender', '$phoneNumber');";
                         $res = $connection->query($query4);         
                         header("Location: ../html/login.html");

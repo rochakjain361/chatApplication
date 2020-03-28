@@ -37,24 +37,10 @@ if(!($_SESSION['username'] == true)){
                 <input type="text" name="phoneNumber" id="phoneNumber" autocomplete="off" style="width: 88% ; height: 1.4em;" >
                 <div id="phoneNumberWarning" class="text_danger"></div>
             </div>
-            <div class = "form-group" style="display: flex;flex-flow:row;width: 70%;justify-content: space-between ">
-                <div><label>New Gender: </label> <br>
-                <select name="gender" style="width: 12em; font-size: 0.75em" id="gender" required>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other"> Other</option>
-                </select></div>
-            </div>
-            <div class = "form-group">
+           <div class = "form-group">
                 <label>New Email: </label> <br>
                 <input type="text" name="email" autocomplete="off" id="email">
                 <div id="emailWarning" class="text_danger"></div>
-            </div>
-            <div class = "form-group"><div>
-                <label>Old Password: </label><br>
-                <input type="password" name="oldPassword" autocomplete="off" id="password"></div><div>
-                <input type="checkbox" onclick="showPassword()" style="width: 2%"><span>Show Password</span></div>
-                <div id="passwordWarning" class="text_danger"></div>
             </div>
             <div class = "form-group"><div>
                 <label>New Password: </label><br>
@@ -78,7 +64,9 @@ $username = $_SESSION['username'];
     if(isset($_POST['submit'])){
 	    if(isset($_POST['fname'])){
 		    $fname = $_POST['fname'];
-            if(preg_match("/^[a-zA-Z ]*$/", $fname)){
+		    if(preg_match("/^[a-zA-Z ]*$/", $fname)){
+			    $fname=htmlspecialchars($fname);
+			    $fname = mysqli_real_escape_string($connection,$firstname);
                 $query1 = "UPDATE rochak_profiles SET fname = '$fname' WHERE uname = '$username';";
                 $r = $connection->query($query1);
                 if(!($r)){
@@ -88,7 +76,9 @@ $username = $_SESSION['username'];
         }
 		    if(isset($_POST['lname'])){
 			    $lname = $_POST['lname'];
-            if(preg_match("/^[a-zA-Z ]*$/", $_POST['lname'])){
+			    if(preg_match("/^[a-zA-Z ]*$/", $_POST['lname'])){
+				    $lname=htmlspecialchars($lname);
+      				    $lname=mysqli_real_escape_string($connection,$lname);
                 $query2 = "UPDATE rochak_profiles SET sname = '$lname' WHERE uname = '$username'';";
                 $r2 = $connection->query($query2);
                 if(!($r2)){
@@ -115,33 +105,35 @@ $username = $_SESSION['username'];
         }
         if(isset($_POST['phoneNumber'])){
 		if(preg_match("/^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/", $_POST['phoneNumber'])){
-			$pNo = $_POST['phoneNumber'];
-                $query4 = "UPDATE rochak_users SET phoneNumber = '$pNo' WHERE username = '$username';";
+			$phoneNumber = $_POST['phoneNumber'];
+			 $phoneNumber=htmlspecialchars($phoneNumber);
+        		 $phoneNumber=mysqli_real_escape_string($conn,$phoneNumber);
+                $query4 = "UPDATE rochak_users SET phoneNumber = '$phoneNumber' WHERE username = '$username';";
                 $r4 = $connection->query($query4);
                 if(!($r4)){
                     header("Location: ../php/editProfile.php");
             }
 		}
 	}
-        if(isset($_POST['password']) && isset($_POST['oldPassword']) && isset($_POST['conPass'])){
+        if(isset($_POST['password']) && isset($_POST['conPass'])){
             if($_POST['password'] == $_POST['conPass']){
-                $query5 = "SELECT password FROM rochak_users WHERE username ='$username';";
-                $r5 = $connection->query($query5);
-                $row = mysqli_fetch_assoc($r5);
-		if($_POST['oldPassword'] == $row['password']){
-			$pass = $_POST['password'];
-                    $query6 = "UPDATE rochak_users SET password = '$pass' WHERE username = '$username';";
+		    $password = $_POST['password'];
+		    $password=htmlspecialchars($password);
+        	    $password=mysqli_real_escape_string($connection,$password);
+		    $password=password_hash($password,PASSWORD_BCRYPT);
+		$query6 = "UPDATE rochak_users SET password = '$password' WHERE username = '$username';";
                     $r6 = $connection->query($query6);
                     if(!($r5)){
                         header("Location: ../php/editProfile.php");
-                    }
-                }
+                   }
                 else{
                     header("Location: ../php/editProfile.php");
                 }
             }
         }
-        if(isset($_POST['email'])){
+	if(isset($_POST['email'])){
+		$email=htmlspecialchars($email);
+        	$email=mysqli_real_escape_string($connection,$email);
 		if(preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $_POST['email'])){
 			$email = $_POST['email'];
                 $query7 = "UPDATE rochak_users SET email = '$email' WHERE username = '$username';";
