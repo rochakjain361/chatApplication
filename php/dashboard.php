@@ -2,8 +2,8 @@
 session_start();
 include '../php/connect.php';
 if(isset($_SESSION['username'])){
-    if(isset($_SESSION['to_username'])){
-        unset($_SESSION['to_username']);
+    if(isset($_SESSION['to_user'])){
+        unset($_SESSION['to_user']);
     }
 $username = $_SESSION['username'];
 $query = "SELECT * FROM rochak_users WHERE username = '$username' ;";
@@ -56,6 +56,7 @@ $row2 = mysqli_fetch_assoc($r2);
 
 .main {
   margin-left: 315px;
+  margin-right: 15px;
   margin-top: 50px;
   background-color: #fbfbf8;
    /* Same as the width of the sidenav */
@@ -86,7 +87,7 @@ $row2 = mysqli_fetch_assoc($r2);
 </div>
 <div class="main">
 <center>Users available for chat</center>
-  <form action="../php/chats.php" method = "POST">
+  <form action="../php/chatmessages.php" method = "POST">
   <?php
   $query3 = "SELECT username FROM rochak_users WHERE NOT username = '$username';";
   $r3 = $connection->query($query3);
