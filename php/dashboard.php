@@ -81,7 +81,7 @@ $row2 = mysqli_fetch_assoc($r2);
     <br> Username: <?php echo $_SESSION['username']; ?>
     <br> Gender: <?php echo $row['gender']; ?>
     <br><br><br><br>
-    <a href = "../html/editProfile.html">EDIT PROFILE</a>
+    <a href = "../php/editProfileOriginal.php">EDIT PROFILE</a>
     <a href = "../php/logout.php">LOGOUT</a>
 </div>
 </div>

@@ -1,3 +1,16 @@
+<?php
+session_start();
+include '../php/connect.php';
+if(isset($_SESSION['username']))
+{
+    $username = $_SESSION['username'];
+    $q1 = "SELECT * FROM rochak_users WHERE username = '$username';";
+    $r1 = $connection->query($q1);
+    $row1 = mysqli_fetch_assoc($r1);
+    $q2 = "SELECT * FROM rochak_profiles WHERE uname = '$username';";
+    $r2 = $connection->query($q2);
+    $row2 = mysqli_fetch_assoc($r2);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,24 +28,26 @@
         <form action="../php/editProfile.php" method="POST" onsubmit="return E-Validation()">
             <div class = "form-group">
                 <label>New First-Name:</label><br>
-                <input type="text" name="fname" id = "fname" autocomplete="off">
+                <input type="text" name="fname" id = "fname" autocomplete="off" value = " <?php echo $row2['fname']; ?>">
             </div>
             <div class = "form-group">
                 <label> New Last-Name:</label><br>
-                <input type="text" name="lname" id = "lname" autocomplete="off" style="width: 88% ; height: 1.4em;" >
+                <input type="text" name="lname" id = "lname" autocomplete="off" style="width: 88% ; height: 1.4em;" value = " <?php echo $row2['sname'];?>" >
             </div>
             <div class = "form-group">
+                <p> Current Profile Picture </p>
+                <img height = "100" width = "100" src = "<?php echo $row2['image']; ?> " > <br>
                 <label for="upload">Select your new avatar </label>
                 <input class="upload" type = "file" name="photo" id = "photo"><br>
             </div>
             <div class = "form-group">
                 <label> New Phone Number:</label><br>
-                <input type="text" name="phoneNumber" id="ephoneNumber" autocomplete="off" style="width: 88% ; height: 1.4em;" >
+                <input type="text" name="phoneNumber" id="ephoneNumber" autocomplete="off" style="width: 88% ; height: 1.4em;" value ="<?php echo $row1['phoneNumber']; ?>">
                 <div id="ephoneNumberWarning" class="text_danger"></div>
             </div>
            <div class = "form-group">
                 <label>New Email: </label> <br>
-                <input type="text" name="email" autocomplete="off" id="eemail">
+                <input type="text" name="email" autocomplete="off" id="eemail" value = "<?php echo $row1['email']; ?>">
                 <div id="eemailWarning" class="text_danger"></div>
             </div>
             <div class = "form-group"><div>
@@ -48,7 +63,7 @@
             </div>
 
             <div class="form-group" style="margin-left: 1em; display: flex; justify-content: center">
-                 <input type="submit" style="width: 40%;height: 2em; font-size: 0.9em" autocomplete="off" id="submit">
+            <input type="submit" style="width: 40%;height: 2em; font-size: 0.9em" autocomplete="off" id="submit">
             </div>
         </form>
     </div>
@@ -100,3 +115,9 @@ function showPassword(){
 </script>
 </body>
 </html>
+<?php
+}
+else {
+	header("Location: dashboard.php");
+}
+?>
