@@ -24,7 +24,7 @@ if(isset($_POST['username']) && isset($_POST['phoneNumber']) && isset($_POST['em
                 else
 		{            
 		    $user=htmlspecialchars($user);
-		    $user=mysqli_real_escape_string($connection,$username);
+		    $user=mysqli_real_escape_string($connection,$user);
 		    $email=htmlspecialchars($email);
    	            $email=mysqli_real_escape_string($connection,$email);
 		    $phoneNumber=htmlspecialchars($phoneNumber);
@@ -42,12 +42,12 @@ if(isset($_POST['username']) && isset($_POST['phoneNumber']) && isset($_POST['em
                     }
                     else
                     {   
-			    $password=htmlspecialchars($password);
-			    $password=mysqli_real_escape_string($connection,$password);
-			    $password=password_hash($password,PASSWORD_BCRYPT);
+			    $pwd=htmlspecialchars($pwd);
+			    $pwd=mysqli_real_escape_string($connection,$pwd);
+			    $pwd=password_hash($pwd,PASSWORD_BCRYPT);
                         $query4 = "INSERT INTO rochak_users (username, password, email, gender, phoneNumber) VALUES ('$user', '$pwd', '$email', '$gender', '$phoneNumber');";
                         $res = $connection->query($query4);         
-                        header("Location: ../html/login.html");
+                        header("Location: ../php/login_new_file.php");
                         die("User Signed Up");
                     }
                 }
